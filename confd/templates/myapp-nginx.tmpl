@@ -1,0 +1,42 @@
+；https://github.com/kelseyhightower/confd/blob/master/docs/templates.md
+
+{{range $dir := lsdir "/services/zookeeper"}}
+
+; declare backend
+{{ $backend := replace $dir "." "_" -1}}
+
+upstream {{$backend}} { 
+
+    ; getvs only get value
+    ; {{$custdir := printf "/services/zookeeper/%s/*" $dir}}{{range getvs $custdir}}
+    server {{.}};
+    {{end}}
+
+    ; 这种方法不行， 需要绝对路径
+    {{$custdir := printf "%s/*" $dir}}{{range getvs $custdir}}
+    server {{.}};
+    {{end}}
+
+    ; line
+
+    ; gets get both key and value 
+    {{$custdir := printf "/services/zookeeper/%s/*" $dir}}{{range gets $custdir}}
+    ; key = /services/zookeeper/%s/xxxx
+    ; server Key={{.Key}};
+    ; server Key={{ base .Key}};
+    ; server Value={{.Value}};
+    server {{.Value}} ;
+    {{end}}
+}
+
+server {
+    server_name {{base $dir}};
+    location / {
+        proxy_pass {{$backend}};
+    }
+}
+
+#########################
+{{end}}
+
+

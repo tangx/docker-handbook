@@ -1,0 +1,8 @@
+[template]
+src = "myapp-nginx.tmpl"
+dest = "output/myapp-nginx.conf"
+owner = "nginx"
+mode = "0644"
+keys = [
+  "/services/zookeeper"
+]

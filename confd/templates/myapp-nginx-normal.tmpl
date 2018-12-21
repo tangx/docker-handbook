@@ -1,0 +1,18 @@
+
+
+{{range $dir := lsdir "/services/zookeeper"}}
+upstream {{base $dir}}  {
+    ; getvs only get value
+    {{$custdir := printf "/services/zookeeper/%s/*" $dir}}{{range getvs $custdir}}
+    server {{.}}:80;
+    {{end}}
+}
+
+server {
+    server_name {{base $dir}};
+    location / {
+        proxy_pass {{base $dir}};
+    }
+}
+{{end}}
+
