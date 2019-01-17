@@ -1,16 +1,15 @@
-
-
-{{range $dir := lsdir "/services/zookeeper"}}
-upstream {{base $dir}}  {
-    {{$custdir := printf "/services/zookeeper/%s/*" $dir}}{{range getvs $custdir}}
-    server {{.}}:80;
+{{range $dir := lsdir "/nginx/services"}}
+{{ $backend := replace $dir "." "_" -1}}
+upstream {{$backend}} { 
+    {{$custdir := printf "/nginx/services/%s/*" $dir}}{{range gets $custdir}}
+    server {{.Value}} ;
     {{end}}
 }
-
 server {
     server_name {{base $dir}};
     location / {
-        proxy_pass {{base $dir}};
+        proxy_pass {{$backend}};
+
         proxy_set_header    Host             $host;
         proxy_set_header    X-Real-IP        $remote_addr;
         proxy_set_header    X-Forwarded-For  $proxy_add_x_forwarded_for;
@@ -18,4 +17,3 @@ server {
     }
 }
 {{end}}
-

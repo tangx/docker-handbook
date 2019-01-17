@@ -2,13 +2,12 @@
 # etcdctl set /services/zookeeper/host2 '{"Id":"host2", "IP":"192.168.10.12"}'
 
 
-services:
-  zookeeper:
+nginx:
+  services:
     host1.example.com:
-      # Id: host1
-      # IP: 192.168.10.12
       - 192.168.10.12:80
       - 192.168.10.13:8080
     host2.example.com:
       Id: host2
       IP: 192.168.10.13:8080
+      
