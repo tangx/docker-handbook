@@ -1,0 +1,22 @@
+version: '3.1'
+
+services:
+  nginx:
+    image: nginx:1.15-alpine
+    restart: always
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 8001:80
+
+  tomcat1:
+    image: nginx:1.15-alpine
+    restart: always
+    volumes:
+      - ./index1.html:/usr/share/nginx/html/index.html
+
+  tomcat2:
+    image: nginx:1.15-alpine
+    restart: always
+    volumes:
+      - ./index2.html:/usr/share/nginx/html/index.html

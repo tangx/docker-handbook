@@ -1,0 +1,21 @@
+version: '3.1'
+
+services:
+  nginx:
+    network_mode: default
+
+    ## https://hub.docker.com/r/really/nginx-modsecurity
+    image: really/nginx-modsecurity:nginx-1.15.7
+
+    ## https://hub.docker.com/r/owasp/modsecurity-crs
+    # image: owasp/modsecurity-crs
+
+    ## https://hub.docker.com/r/owasp/modsecurity/tags
+    # image: owasp/modsecurity
+
+    restart: always
+    # volumes:
+    #   - ./default.conf:/etc/nginx/conf.d/default.conf
+    #   - ./modsec_includes.conf:/etc/nginx/conf.d/modsec_includes.conf
+    ports:
+      - 80:80
