@@ -1,0 +1,11 @@
+version: '3.1'
+
+services:
+  db:
+    network_mode: default
+    image: fellah/gitbook
+    restart: always
+    volumes: 
+      - /path/to/gitbook:/srv/gitbook
+    ports:
+      - 80:4000
