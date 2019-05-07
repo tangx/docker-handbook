@@ -1,0 +1,12 @@
+version: '3.1'
+
+services:
+  nginx:
+    image: nginx:1.15-alpine
+    restart: always
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+      - /Users/tangxin/Documents/QueryCAP/项目组/智慧清徐/域名证书/:/etc/nginx/conf.d/
+    ports:
+      - 8443:8443
+      - 8080:8080
