@@ -6,6 +6,8 @@ services:
     restart: always
     volumes:
       - ./default.conf:/etc/nginx/conf.d/default.conf
+      - ./index1.html:/usr/share/nginx/html/index.html
+
     ports:
       - 8001:80
 
