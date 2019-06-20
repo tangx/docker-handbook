@@ -1,0 +1,10 @@
+version: '3.1'
+
+services:
+  nginx:
+    image: nginx:1.15-alpine
+    restart: always
+    volumes:
+      - ./index1.html:/usr/share/nginx/html/index.html
+    ports:
+      - 50080:80
