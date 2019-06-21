@@ -12,6 +12,8 @@ services:
       MINIO_SECRET_KEY: EMjs8ELAHg0bsfs05p9b
     volumes:
       - /data/minio:/data
+      - /Users/tangxin/Documents/QueryCAP/A系统运维部/域名证书/demo.querycap.com/Nginx/2_demo.querycap.com.key:/root/.minio/certs/private.key:ro
+      - /Users/tangxin/Documents/QueryCAP/A系统运维部/域名证书/demo.querycap.com/Nginx/1_demo.querycap.com_bundle.crt:/root/.minio/certs/public.crt:ro
     command: 
       # - minio
       - server
