@@ -1,0 +1,15 @@
+version: '3.1'
+
+# nginx 正向代理
+
+services:
+  nginx:
+    network_mode: default
+    image: nginx:1.15-alpine
+    restart: always
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 50443:443
+      - 50080:80
