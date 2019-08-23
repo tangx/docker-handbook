@@ -1,0 +1,9 @@
+version: '3.3'
+
+# public plantuml server
+## https://www.plantuml.com/plantuml
+services:
+  plantuml-server:
+    image: plantuml/plantuml-server
+    ports:
+      - 8080:8080
