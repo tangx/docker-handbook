@@ -1,0 +1,14 @@
+version: '3.3'
+
+services:
+  postgis:
+    network_mode: default
+    image: mdillon/postgis:11
+    restart: always
+    ports:
+      - 5432:5432
+    environment: 
+      POSTGRES_USER: root
+      POSTGRES_PASS: V69Gz4wsysY
+      ALLOW_IP_RANGE: 0.0.0.0/0
+    
