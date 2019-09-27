@@ -6,9 +6,9 @@ services:
     # command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: YOUR_PASSWORD
+      MYSQL_ROOT_PASSWORD: V69Gz4wsysY
     ports:
-      - 60333:3306
+      - 3306:3306
     network_mode: default
 
   adminer:
@@ -17,3 +17,24 @@ services:
     ports:
       - 8080:8080
     network_mode: default
+
+  exporter:
+    # https://github.com/prometheus/mysqld_exporter
+    network_mode: default
+    image: prom/mysqld-exporter
+    ports:
+      - 9104:9104
+    environment:
+      DATA_SOURCE_NAME: "root:V69Gz4wsysY@(db:3306)"
+    entrypoint:
+      - /bin/mysqld_exporter
+      - --collect.auto_increment.columns
+      - --collect.global_status
+      - --collect.info_schema.innodb_cmp
+      - --collect.perf_schema.eventswaits
+      - --collect.perf_schema.eventsstatementssum
+      - --collect.perf_schema.indexiowaits
+      - --collect.perf_schema.tablelocks
+      - --collect.slave_status
+      # - --no-collect.auto_increment.columns
+
