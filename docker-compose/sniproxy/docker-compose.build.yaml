@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  sniproxy:
+    build:
+      context: .
+      dockerfile: Dockerfile
