@@ -1,0 +1,21 @@
+    groups:
+    - name: test-rule
+      rules:
+      - alert: NodeFilesystemUsage
+        expr: node_filesystem_size_bytes{} >100
+        for: 1m
+        # labels:
+        #   team: node
+        annotations:
+          summary: "{{$labels.instance}}: High Filesystem usage detected"
+          description: "{{$labels.instance}}: Filesystem usage is above 80% (current value is: {{ $value }}"
+    - name: online-rules
+      rules:
+      - alert: NodeFilesystemUsage
+        expr: node_filesystem_size_bytes{} >9999
+        for: 1m
+        # labels:
+        #   team: node
+        annotations:
+          summary: "{{$labels.instance}}: High Filesystem usage detected"
+          description: "{{$labels.instance}}: Filesystem usage is above 80% (current value is: {{ $value }}"

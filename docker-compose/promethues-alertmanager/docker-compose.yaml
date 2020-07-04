@@ -1,0 +1,50 @@
+version: '3.1'
+
+networks:
+  prom:
+    ipam:
+      driver: default
+      config:
+        - subnet: "169.254.101.0/24"
+
+
+services: 
+  prometheus:
+    restart: always
+    image: prom/prometheus
+    ports:
+      - 9090:9090
+    # environment:
+    #   discovery.type: single-node
+    volumes: 
+      - ./config/:/etc/prometheus/
+      - ./data/prome:/prometheus
+    networks:
+      - prom
+
+  alertmanager:
+    restart: always
+    image: quay.io/prometheus/alertmanager:v0.14.0
+    ports:
+      # - 9094:9094
+      - 9093:9093
+    volumes:
+      - ./config/:/etc/alertmanager/
+      - ./data/alert/:/alertmanager/
+    command:
+      # - /bin/alertmanager
+      - --config.file=/etc/alertmanager/alertmanager.yml
+      - --storage.path=/alertmanager
+      # - --cluster.listen-address=127.0.0.1:9093
+      # - --cluster.listen-address=
+      # 日志等级
+      - --log.level=debug
+    networks:
+      - prom
+
+
+  # dingtalk-webhook:
+  #   restart: always
+  #   image: timonwong/prometheus-webhook-dingtalk
+  #   command:
+  #     - --ding.profile="webhook1=https://oapi.dingtalk.com/robot/send?access_token~/
