@@ -1,0 +1,25 @@
+version: '3.1'
+
+services:
+  dfclient:
+    # 使用 host 模式，见效容器网络压力
+    network_mode: host
+    restart: always
+    image: dragonflyoss/dfclient:1.0.2
+    ports:
+      - 65001:65001
+    volumes:
+      - ./data/.small-dragonfly:/root/.small-dragonfly
+      - ./conf:/etc/dragonfly
+    command:
+      # 限速
+      - --ratelimit
+      - 1000M
+      # 国内加速代理
+      - --registry
+      - https://wlzfs4t4.mirror.aliyuncs.com
+      # 指定 supernode 
+      - --node
+      - 10.100.4.14=1
+      # 详细日志
+      - --verbose

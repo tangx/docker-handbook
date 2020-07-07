@@ -1,0 +1,10 @@
+# 私有仓库代理
+proxies:
+- regx: blobs/sha256.*
+
+# 可信 https 的 harbor 
+hijack_https:
+  cert: /etc/dragonfly/harbor.yourdomain.com.crt
+  key: /etc/dragonfly/harbor.yourdomain.com.key
+  hosts:
+  - regx: harbor.yourdomain.com

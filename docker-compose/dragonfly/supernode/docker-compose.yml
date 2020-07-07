@@ -1,0 +1,22 @@
+version: '3.1'
+
+services: 
+  supernode:
+    # 使用 host 模式，减小容器网络压力
+    network_mode: host
+    restart: always
+    image: dragonflyoss/supernode:1.0.2
+    ports:
+      - 8001:8001
+      - 8002:8002
+    volumes: 
+      - ./data/supernode/:/home/admin/supernode
+    command:
+      # 指定 dfget 连接的地址，多 IP 时使用。
+      - --advertise-ip
+      - 10.100.4.14
+      # 指定 dfget 连接的下载端口， 默认 8001
+      - --download-port=8001
+      # 详细日志
+      - --debug
+
