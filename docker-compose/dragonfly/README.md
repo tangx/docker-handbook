@@ -10,8 +10,21 @@
 1. dfdaemon 是专为容器网络实现的代理工具，连接 supernode 转发请求。
 2. dfdaemon 代理私有仓库时，需要针对 docker proxy 进行额外的配置。
   1. dfdaemon.yml 参数配置
-  2. dfdaemon 默认**不** 支持代理私有仓库，所以需要设置 `/etc/systemd/system/service.docker.d/http-proxy.conf` 实现代理下载。
-3. 如果代理公有仓库，需要在 `/etc/docker/daemon.json` 中配置 `registry-mirrors` **(注意不是 `insecure-registries`)**。 `{registry-mirrors: ["http://127.0.0.1:65001"]}`
+  2. dfdaemon 默认**不** 支持代理私有仓库，所以需要设置 `/etc/systemd/system/docker.service.d/http-proxy.conf` 实现代理下载。
+
+```ini
+[Service]
+Environment="HTTP_PROXY=http://127.0.0.1:65001"
+Environment="HTTPS_PROXY=http://127.0.0.1:65001"
+```
+
+3. 如果代理公有仓库，需要在 `/etc/docker/daemon.json` 中配置 `registry-mirrors` **(注意不是 `insecure-registries`)**。 `{"registry-mirrors": ["http://127.0.0.1:65001"]}`
+
+```json
+{
+  "registry-mirrors": ["http://127.0.0.1:65001"]
+}
+```
 
 ## dfget
 
